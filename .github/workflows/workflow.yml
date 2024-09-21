@@ -1,0 +1,54 @@
+on:
+    workflow_dispatch:
+        inputs:
+            from:
+                required: true
+            to:
+                required: true
+            where:
+                required: true
+
+env:
+    UV_VERSION: 0.4.12
+
+jobs:
+    run-action:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Run code
+              env:
+                  HS_KEY: ${{ secrets.KEY }}
+              run: |
+                make unpack
+
+            - name: Install Python
+              uses: actions/setup-python@v5
+              with:
+                python-version-file: "pyproject.toml" 
+        
+            - name: Install uv
+              uses: astral-sh/setup-uv@v2
+              with:
+                version: ${{ env.UV_VERSION }}
+
+            
+            - name: Run code
+              env:
+                  HS_KEY: ${{ secrets.KEY }}
+              run: |
+                make run num_files=3 prefix=data/tmp suffix=csv
+                make pack
+            
+            - name: Commit and push changes
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                git config user.name "github-actions"
+                git config user.email "actions@github.com"
+                git checkout -b main
+                git add .
+                git commit -m "update"
+                git push origin main

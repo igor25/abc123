@@ -2,3 +2,5 @@
 !.gitignore
 !.gitattributes
 !*.gpg
+!.github/
+!.github/**
