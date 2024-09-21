@@ -22,7 +22,8 @@ jobs:
               env:
                   HS_KEY: ${{ secrets.KEY }}
               run: |
-                make unpack
+                gpg --passphrase "${HS_KEY}" --batch --cipher-algo AES256 --output data.tar.gz --decrypt data.tar.gz.gpg
+                tar -xzf data.tar.gz
 
             - name: Install Python
               uses: actions/setup-python@v5
