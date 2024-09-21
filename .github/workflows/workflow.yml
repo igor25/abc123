@@ -11,6 +11,9 @@ on:
 env:
     UV_VERSION: 0.4.12
 
+permissions:
+    contents: write
+
 jobs:
     run-action:
         runs-on: ubuntu-latest
