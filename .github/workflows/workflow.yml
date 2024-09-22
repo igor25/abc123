@@ -22,10 +22,8 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Run code
-              env:
-                  HS_KEY: ${{ secrets.KEY }}
               run: |
-                gpg --passphrase "${HS_KEY}" --batch --cipher-algo AES256 --output data.tar.gz --decrypt data.tar.gz.gpg
+                gpg --passphrase "${{ secrets.KEY }}" --batch --cipher-algo AES256 --output data.tar.gz --decrypt data.tar.gz.gpg
                 tar -xzf data.tar.gz
 
             - name: Install Python
