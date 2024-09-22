@@ -43,7 +43,8 @@ jobs:
               env:
                   HS_KEY: ${{ secrets.KEY }}
               run: |
-                make run num_files=3 prefix=data/tmp suffix=csv
+                uv venv && uv sync
+                make run from=${{ inputs.from }} to=${{ inputs.to }} where="${{ inputs.where }}"
                 make pack
             
             - name: Commit and push changes
