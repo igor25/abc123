@@ -41,7 +41,7 @@ jobs:
               env:
                   HS_KEY: ${{ secrets.KEY }}
               run: |
-                echo "$GITHUB_EVENT_PATH"
+                echo "$GITHUB_EVENT_PATH" | jq -r '.'
                 from=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.from' )
                 to=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.to' )
                 where=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.where' )
