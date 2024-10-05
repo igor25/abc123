@@ -41,12 +41,14 @@ jobs:
               env:
                   HS_KEY: ${{ secrets.KEY }}
               run: |
-                cat "$GITHUB_EVENT_PATH" | jq -r '.'
                 from=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.from' )
                 to=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.to' )
                 where=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.where' )
-                { uv venv && uv sync } > /dev/null 2>&1
-                make run
+                echo "${from}"
+                { 
+                  uv venv && uv sync 
+                  make run
+                } > /dev/null 2>&1
                 make pack
             
             - name: Commit and push changes
