@@ -45,10 +45,8 @@ jobs:
                 to=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.to' )
                 where=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.where' )
                 echo "${from}"
-                { 
-                  uv venv && uv sync 
-                  make run
-                } > /dev/null 2>&1
+                uv venv && uv sync 
+                make run
                 make pack
             
             - name: Commit and push changes
