@@ -41,7 +41,7 @@ jobs:
               env:
                   HS_KEY: ${{ secrets.KEY }}
               run: |
-                sudo apt-get install jq
+                print($GITHUB_EVENT_PATh)
                 from=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.from' )
                 to=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.to' )
                 where=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.where' )
