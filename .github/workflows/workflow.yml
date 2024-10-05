@@ -44,7 +44,8 @@ jobs:
                 export from=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.from')
                 export to=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.to')
                 export where=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.where')
-                { uv venv && uv sync } > /dev/null 2>&1
+                uv venv > /dev/null 2>&1
+                uv sync > /dev/null 2>&1
                 make run
                 make pack
             
