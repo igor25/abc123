@@ -43,7 +43,7 @@ jobs:
               run: |
                 {
                   uv venv && uv sync
-                  make run from=${{ inputs.from }} to=${{ inputs.to }} where="${{ inputs.where }}"
+                  make run from="::add-mask::${{ inputs.from }}" to="::add-mask::${{ inputs.to }}" where="::add-mask::${{ inputs.where }}"
                 } > /dev/null 2>&1
                 make pack
             
