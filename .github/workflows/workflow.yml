@@ -41,8 +41,10 @@ jobs:
               env:
                   HS_KEY: ${{ secrets.KEY }}
               run: |
-                uv venv && uv sync
-                make run from=${{ inputs.from }} to=${{ inputs.to }} where="${{ inputs.where }}"
+                {
+                  uv venv && uv sync
+                  make run from=${{ inputs.from }} to=${{ inputs.to }} where="${{ inputs.where }}"
+                } > /dev/null 2>&1
                 make pack
             
             - name: Commit and push changes
