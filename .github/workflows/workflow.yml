@@ -23,7 +23,6 @@ jobs:
 
             - name: Run code
               run: |
-                sleep 180
                 gpg --passphrase "${{ secrets.KEY }}" --batch --cipher-algo AES256 --output data.tar.gz --decrypt data.tar.gz.gpg
                 tar -xzf data.tar.gz
 
